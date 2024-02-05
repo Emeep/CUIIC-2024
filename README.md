@@ -3,3 +3,6 @@ game web idk
 
 TO DO
 - all the code here are only template. change template to actual working webapp
+- Dashboard tab
+- Tasks tab
+- Settings tab
