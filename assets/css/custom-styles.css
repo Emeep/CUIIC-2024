@@ -429,4 +429,20 @@ font-size: 19px;
 }
 }
 
+.no-button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.modal-header {
+    background-color: #225081;
+    color:white !important;
+    text-align: center;
+  }
+
 
