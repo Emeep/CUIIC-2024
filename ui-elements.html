@@ -93,7 +93,7 @@
 			  <div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">Tasks</div>        							  
-                    <div class="panel-body">
+                    <div class="panel-body" id="task-panel">
                         <!-- Daily tasks everyday (strong: Daily) Optional Tasks manually added-->
                         <div class="alert alert-info">
                             <button type="button" class="btn no-button" data-toggle="modal" style="text-decoration: underline;" data-target="#exampleModal">Click here </button> to connect with Google Gemini to use generative tasks feature.
@@ -222,6 +222,28 @@
 
         function Complete(){
             this.remove();
+        }
+
+        function createTask() {
+            var taskPanel = document.getElementById("task-panel");
+
+            // Create div element with necessary classes and content
+            var taskDiv = document.createElement("div");
+            taskDiv.className = "task alert alert-success";
+            var button = document.createElement("button");
+            button.type = "button";
+            button.className = "btn btn-success";
+            button.setAttribute("onclick", "this.parentNode.remove()");
+            var span = document.createElement("span");
+            span.className = "glyphicon glyphicon-ok-circle";
+            button.appendChild(span);
+            var text = "You successfully read this important alert message.";
+            var textNode = document.createTextNode("\u00A0" + text);
+            taskDiv.appendChild(button);
+            taskDiv.appendChild(textNode);
+
+            // Append the newly created task to the task panel
+            taskPanel.appendChild(taskDiv);
         }
         
     </script>
