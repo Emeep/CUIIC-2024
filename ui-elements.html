@@ -30,7 +30,7 @@
                         <label for="usrname"><span class="glyphicon glyphicon-lock"></span> API KEY</label>
                         <input type="text" class="form-control" id="usrname" placeholder="Enter API Key">
                     </div>
-                    <button type="submit" onclick="store()" class="btn btn-success btn-block" style="background-color: #225081;"><span class="glyphicon glyphicon-ok"></span> Confirm</button>
+                    <button type="submit" onclick="testery();" class="btn btn-success btn-block" style="background-color: #225081;"><span class="glyphicon glyphicon-ok"></span> Confirm</button>
                 </form>
             </div>
         </div>
@@ -98,18 +98,6 @@
                         <div class="alert alert-info">
                             <button type="button" class="btn no-button" data-toggle="modal" style="text-decoration: underline;" data-target="#exampleModal">Click here </button> to connect with Google Gemini to use generative tasks feature.
                         </div>
-                        <div class="task alert alert-success">
-                            <button type="button" class="btn btn-success" onclick="this.parentNode.remove()"><span class="glyphicon glyphicon-ok-circle"> </span></button>&#160 You successfully read this important alert message.
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                        </div>
-                        <div class="alert alert-warning">
-                            <strong>Warning!</strong> Best check yo self, you're not looking too good.
-                        </div>
-                        <div class="alert alert-danger">
-                            <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                        </div>
                     </div>
 				</div>
 			</div>						
@@ -119,7 +107,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                         <div class="panel-heading">
-                            Simple Progress Bars 
+                            Progress
                         </div>
                        
                         <div class="panel-body">
@@ -143,111 +131,74 @@
     <span class="sr-only">80% Complete</span>
   </div>
 </div>
-                            </div>
-                            </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Progress Bars 
-                        </div>
-                       
-                        <div class="panel-body">
-                       <div class="progress progress-striped">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-    <span class="sr-only">40% Complete (success)</span>
-  </div>
-</div>
-<div class="progress progress-striped">
-  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-    <span class="sr-only">20% Complete</span>
-  </div>
-</div>
-<div class="progress progress-striped">
-  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-    <span class="sr-only">60% Complete (warning)</span>
-  </div>
-</div>
-<div class="progress progress-striped">
-  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-    <span class="sr-only">80% Complete</span>
-  </div>
-</div>
-                            </div>
-                            </div>
-                    </div>
-                </div>
-                 <!-- /. ROW  -->
-				 	<div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Animated Progress Bars 
-                        </div>
-                       
-                        <div class="panel-body">
-                       <div class="progress progress-striped active">
-  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-    <span class="sr-only">40% Complete (success)</span>
-  </div>
-</div>
-                            </div>
-                            </div>
-                    </div>
-                      <div class="col-md-6">
-                        <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Stacked Progress Bars 
-                        </div>
-                       
-                        <div class="panel-body">
-                       <div class="progress">
-  <div class="progress-bar progress-bar-success" style="width: 35%">
-    <span class="sr-only">35% Complete (success)</span>
-  </div>
-  <div class="progress-bar progress-bar-warning" style="width: 20%">
-    <span class="sr-only">20% Complete (warning)</span>
-  </div>
-  <div class="progress-bar progress-bar-danger" style="width: 10%">
-    <span class="sr-only">10% Complete (danger)</span>
-  </div>
-</div>
-
+  
     <!-- JS Scripts-->
-    <script>
-        function store(){
-            var input = document.getElementById("usrname");
-            localStorage.setItem("apikey", input.value);
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
         }
+      }
+    </script>
+    <script type="module">
+      var apikey = localStorage.getItem("apikey");
+      if (apikey) {
+          init_task(5);
+      }
 
-        function Complete(){
-            this.remove();
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      function init_task(amt) {
+        for (let i = 0; i < amt; i++) {
+          createTask("give me 1 fun environmental challenge in less than 20 words.");
         }
+      }
 
-        function createTask() {
-            var taskPanel = document.getElementById("task-panel");
+      async function createTask(give_prompt) {
+        const genAI = new GoogleGenerativeAI(apikey);
 
-            // Create div element with necessary classes and content
-            var taskDiv = document.createElement("div");
-            taskDiv.className = "task alert alert-success";
-            var button = document.createElement("button");
-            button.type = "button";
-            button.className = "btn btn-success";
-            button.setAttribute("onclick", "this.parentNode.remove()");
-            var span = document.createElement("span");
-            span.className = "glyphicon glyphicon-ok-circle";
-            button.appendChild(span);
-            var text = "You successfully read this important alert message.";
-            var textNode = document.createTextNode("\u00A0" + text);
-            taskDiv.appendChild(button);
-            taskDiv.appendChild(textNode);
+        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+        const prompt = give_prompt
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
 
-            // Append the newly created task to the task panel
-            taskPanel.appendChild(taskDiv);
-        }
-        
+        createTaskUI(text)
+      }
+
+      function store(){
+          var input = document.getElementById("usrname");
+          localStorage.setItem("apikey", input.value);
+      }
+
+      function testery() {
+          console.log("hello")
+      }
+
+      function createTaskUI(text) {
+          var taskPanel = document.getElementById("task-panel");
+
+          // Create div element with necessary classes and content
+          var taskDiv = document.createElement("div");
+          taskDiv.className = "task alert alert-success";
+          var button = document.createElement("button");
+          button.type = "button";
+          button.className = "btn btn-success";
+          button.setAttribute("onclick", "this.parentNode.remove()");
+          var span = document.createElement("span");
+          span.className = "glyphicon glyphicon-ok-circle";
+          button.appendChild(span);
+          var textNode = document.createTextNode("\u00A0" + text);
+          taskDiv.appendChild(button);
+          taskDiv.appendChild(textNode);
+
+          // Append the newly created task to the task panel
+          taskPanel.appendChild(taskDiv);
+      }
+      
     </script>
     <!-- jQuery Js -->
+    <script src="assets/js/script.js"></script>
     <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
